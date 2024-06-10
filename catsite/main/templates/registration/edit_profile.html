@@ -1,0 +1,43 @@
+{% extends "main/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <h4>Изменение личного профиля</h4>
+    <form action="{% url 'edit_profile' %}" method="post">
+         {% csrf_token %}
+        {{ form.username.label }}:<br>
+         <div>
+                {{ form.username|add_class:'form-control' }}
+         </div>
+        {{ form.name.label }}:<br>
+         <div>
+                {{ form.name|add_class:'form-control' }}
+         </div>
+        {{ form.surname.label }}:<br>
+         <div>
+                {{ form.surname|add_class:'form-control' }}
+         </div>
+        {{ form.email.label }}:<br>
+         <div>
+                {{ form.email|add_class:'form-control' }}
+         </div>
+        {{ form.birth_date.label }}:<br>
+         <div>
+                {{ form.birth_date|add_class:'form-control' }}
+         </div>
+        {{ form.city.label }}:<br>
+         <div>
+                {{ form.city|add_class:'form-control' }}
+         </div>
+        {{ form.toy.label }}:<br>
+         <div>
+                {{ form.toy|add_class:'form-control' }}
+         </div>
+        <button type="submit" class="btn btn-info">Изменить профиль</button>
+        {% for field in form %}
+          {% for error in field.errors %}
+            <p style="color: red;">{{ error }}</p>
+          {% endfor %}
+        {% endfor %}
+    </form>
+{% endblock %}
