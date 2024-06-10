@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -20,10 +21,20 @@ class User(AbstractUser):
 
 
 class Task(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь', related_name='tasks')
-    title = models.CharField('Название', max_length=100)
-    task = models.TextField('Описание')
-    date = models.DateField('Дата', default=datetime.date.today())
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name='Пользователь', related_name='tasks', default=None, null=True)
+    title = models.CharField('Название', max_length=100, null=False, blank=False)
+    task = models.TextField('Описание', null=False, blank=False)
+    work_size = models.CharField('Время на задачу', max_length=100, null=True)
+    start_date = models.DateField('Дата начала', default=None, null=True)
+    end_date = models.DateField('Дата окончания', default=None, null=True)
+    is_finished = models.BooleanField('Закончена', default=False)
+
+    def save(self, *args, **kwargs):
+        if not self.user:
+            self.user = get_user_model().objects.first()  # Получаем первого пользователя
+        if not self.start_date:
+            self.start_date = timezone.now().date()
+        super().save(*args, **kwargs)
 
     def __repr__(self):
         return f'<Task> {self.title}'

@@ -1,0 +1,27 @@
+{% extends "main/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <h4>Создание задачи</h4>
+    <form action="{% url 'new_task' %}" method="post">
+         {% csrf_token %}
+        {{ form.title.label }}:<br>
+         <div>
+                {{ form.title|add_class:'form-control' }}
+         </div>
+        {{ form.task.label }}:<br>
+         <div>
+                {{ form.task|add_class:'form-control' }}
+         </div>
+        {{ form.work_size.label }}:<br>
+         <div>
+                {{ form.work_size|add_class:'form-control' }}
+         </div>
+        <button type="submit" class="btn btn-info">Создать</button>
+        {% for field in form %}
+          {% for error in field.errors %}
+            <p style="color: red;">{{ error }}</p>
+          {% endfor %}
+        {% endfor %}
+    </form>
+{% endblock %}

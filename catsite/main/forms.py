@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import User
+from .models import User, Task
 
 
 class RegisterForm(UserCreationForm):
@@ -56,4 +56,20 @@ class EditProfileForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = User
         fields = ['username', 'email', 'name', 'surname', 'birth_date', 'city', 'toy']
+
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['title', 'task', 'work_size']
+        labels = {
+            'title': 'Название',
+            'task': 'Описание',
+            'work_size': 'Время на задачу'
+        }
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите название'}),
+            'task': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Введите описание'}),
+            'work_size': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Время на задачу в свободной форме'}),
+        }
 

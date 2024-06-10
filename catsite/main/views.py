@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
 
-from .forms import RegisterForm, EditProfileForm
+from .forms import RegisterForm, EditProfileForm, TaskForm
 from .models import Task
 
 from django.shortcuts import render, redirect
@@ -55,6 +55,30 @@ class ChangeUser(View):
             user.modified_date = timezone.now()
             user.save()
             return redirect('home')
+        else:
+            # Если данные формы недопустимы, возвращаем страницу регистрации с сообщением об ошибке
+            context = {'form': form}
+            return render(request, self.template_name, context)
+
+
+class Tasks(View):
+    template_name = 'tasks/new_task.html'
+
+    def get(self, request):
+        contex = {'form': TaskForm()}
+        return render(request, self.template_name, contex)
+
+    def post(self, request):
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        else:
+            # Если данные формы недопустимы, возвращаем страницу регистрации с сообщением об ошибке
+            context = {'form': form}
+            return render(request, self.template_name, context)
+
+
 
 
 
