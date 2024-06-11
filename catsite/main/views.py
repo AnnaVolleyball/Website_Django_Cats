@@ -71,7 +71,9 @@ class Tasks(View):
     def post(self, request):
         form = TaskForm(request.POST)
         if form.is_valid():
-            form.save()
+            task = form.save(commit=False)
+            task.user = request.user  # Присваиваем текущего пользователя
+            task.save()
             return redirect('home')
         else:
             # Если данные формы недопустимы, возвращаем страницу регистрации с сообщением об ошибке

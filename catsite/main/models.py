@@ -1,5 +1,6 @@
 import datetime
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.db import models
@@ -21,7 +22,7 @@ class User(AbstractUser):
 
 
 class Task(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name='Пользователь', related_name='tasks', default=None, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Пользователь', related_name='tasks', default=None, null=True)
     title = models.CharField('Название', max_length=100, null=False, blank=False)
     task = models.TextField('Описание', null=False, blank=False)
     work_size = models.CharField('Время на задачу', max_length=100, null=True)
@@ -30,8 +31,6 @@ class Task(models.Model):
     is_finished = models.BooleanField('Закончена', default=False)
 
     def save(self, *args, **kwargs):
-        if not self.user:
-            self.user = get_user_model().objects.first()  # Получаем первого пользователя
         if not self.start_date:
             self.start_date = timezone.now().date()
         super().save(*args, **kwargs)

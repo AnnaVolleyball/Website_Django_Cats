@@ -17,7 +17,7 @@
         Дата написания - {{item.start_date}}
     </div>
 </div>
-{% if user.is_authenticated and user == item.user %}
+{% if user.is_authenticated and user.id == item.user_id %}
     <div>
         <button href="/news/{{ item.id }}" class="btn btn-warning">
             Изменить
