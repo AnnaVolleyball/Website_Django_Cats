@@ -1,0 +1,32 @@
+{% extends "main/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <h4>Редактирование задачи</h4>
+    <form action="{% url 'edit_task' task.id %}" method="post">
+         {% csrf_token %}
+        {{ form.title.label }}:<br>
+         <div>
+                {{ form.title|add_class:'form-control' }}
+         </div>
+        {{ form.task.label }}:<br>
+         <div>
+                {{ form.task|add_class:'form-control' }}
+         </div>
+        {{ form.work_size.label }}:<br>
+         <div>
+                {{ form.work_size|add_class:'form-control' }}
+         </div>
+        {{ form.is_finished.label }}:<br>
+         <div>
+                {{ form.is_finished }}
+         </div>
+        <br>
+        <button type="submit" class="btn btn-info">Сохранить</button>
+        {% for field in form %}
+          {% for error in field.errors %}
+            <p style="color: red;">{{ error }}</p>
+          {% endfor %}
+        {% endfor %}
+    </form>
+{% endblock %}

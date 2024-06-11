@@ -47,15 +47,21 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'name', 'surname', 'email', 'birth_date', 'city', 'toy', 'password1', 'password2')
-        labels = {
-            'username': 'Имя пользователя'
-        }
 
 
 class EditProfileForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = User
         fields = ['username', 'email', 'name', 'surname', 'birth_date', 'city', 'toy']
+        labels = {
+            'username': 'Никнейм',
+            'email': 'Email',
+            'birth_date': 'Дата рождения',
+            'name': 'Имя',
+            'surname': 'Фамилия',
+            'city': 'Город',
+            'toy': 'Любимая игрушка'
+        }
 
 
 class TaskForm(forms.ModelForm):
@@ -71,5 +77,17 @@ class TaskForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите название'}),
             'task': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Введите описание'}),
             'work_size': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Время на задачу в свободной форме'}),
+        }
+
+
+class EditTaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['title', 'task', 'work_size', 'is_finished']
+        labels = {
+            'title': 'Название',
+            'task': 'Описание',
+            'work_size': 'Время на задачу',
+            'is_finished': 'Закончена?'
         }
 

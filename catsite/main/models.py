@@ -28,15 +28,25 @@ class Task(models.Model):
     work_size = models.CharField('Время на задачу', max_length=100, null=True)
     start_date = models.DateField('Дата начала', default=None, null=True)
     end_date = models.DateField('Дата окончания', default=None, null=True)
-    is_finished = models.BooleanField('Закончена', default=False)
+    is_finished = models.BooleanField('Закончена?', default=False)
 
     def save(self, *args, **kwargs):
         if not self.start_date:
             self.start_date = timezone.now().date()
+        print(self.is_finished)
+        if self.is_finished:
+            self.end_date = timezone.now().date()
+            print(self.end_date)
+        elif not self.is_finished:
+            self.end_date = None
+            print(self.end_date)
         super().save(*args, **kwargs)
 
     def __repr__(self):
-        return f'<Task> {self.title}'
+        return f'<Task> {self.title}, {self.task}, {self.work_size}, {self.start_date}, {self.end_date}, {self.is_finished}'
+
+    def __str__(self):
+        return f'<Task> {self.title}, {self.task}, {self.work_size}, {self.start_date}, {self.end_date}, {self.is_finished}'
 
     class Meta:
         verbose_name = 'Задача'
