@@ -14,6 +14,7 @@ from django.utils import timezone
 def index_page(request):
     params = {}
     tasks = Task.objects.all()
+    tasks = tasks[::-1]
     params['tasks'] = tasks
     return render(request, 'main/index.html', params)
 
