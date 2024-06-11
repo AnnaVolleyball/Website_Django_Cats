@@ -1,37 +1,56 @@
-h1 {
-   color: red;
-   text-align: center;
+body {
+    font-family: 'Comic Sans MS', cursive;
+    background-color: #f8f9fa; /* Светло-голубой фон */
 }
 
-div {
-    margin-bottom: 20px;
+.navbar {
+    background-color: #e3f2fd; /* Светло-голубой цвет */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.ot {
-    margin-top: 20px;
+.navbar-brand {
+    display: flex;
+    align-items: center;
 }
 
-figure img {
-  max-width: 450px;
-  max-height: 450px;
+.navbar-brand h1 {
+    font-family: 'Comic Sans MS', cursive;
+    color: #007bff; /* Голубой цвет текста */
+    margin-left: 10px;
 }
 
-
-form.login_form {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 450px;
-    background-color: #ADD8E6;
-    border: 1px solid gray;
-    border-radius: 5px;
-    padding: 10px;
+.navbar-nav .nav-link {
+    color: #007bff;
 }
 
-.carousel {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 450px;
-    max-height: 450px;
+.btn-register {
+    background-color: #ffcccb; /* Пастельный розовый */
+    border-color: #ffcccb;
+    color: white;
+    margin-left: 10px;
+}
+
+.btn-login {
+    background-color: #add8e6; /* Пастельный голубой */
+    border-color: #add8e6;
+    color: white;
+    margin-left: 10px;
+}
+
+.cat-paw {
+    width: 30px;
+    height: 30px;
+}
+
+.btn-register:hover, .btn-login:hover {
+    background-color: #0069d9;
+    color: white;
+}
+
+.col-md6 {
+    margin-bottom: 10px;
 }
 
 

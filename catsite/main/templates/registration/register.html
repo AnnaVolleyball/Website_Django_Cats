@@ -41,6 +41,7 @@
          <div>
                 {{ form.password2|add_class:'form-control' }}
          </div>
+        <br>
         <button type="submit" class="btn btn-info">Войти</button>
         {% for field in form %}
           {% for error in field.errors %}

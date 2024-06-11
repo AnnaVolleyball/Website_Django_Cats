@@ -33,6 +33,7 @@
          <div>
                 {{ form.toy|add_class:'form-control' }}
          </div>
+        <br>
         <button type="submit" class="btn btn-info">Изменить профиль</button>
         {% for field in form %}
           {% for error in field.errors %}
