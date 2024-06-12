@@ -53,4 +53,11 @@ body {
     margin-bottom: 10px;
 }
 
+.carousel {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 450px;
+    max-height: 450px;
+}
+
 

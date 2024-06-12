@@ -1,3 +1,6 @@
+import os
+
+from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseForbidden
 
@@ -120,6 +123,25 @@ class DeleteTask(View):
         task = get_object_or_404(Task, id=task_id)
         task.delete()
         return redirect('home')
+
+
+class Galery(View):
+    def get(self, request):
+        pictures = [file for file in os.listdir(os.path.join(settings.BASE_DIR, 'main/static/main/img/carousel')) if not file.startswith('.')]
+        context = {'pictures': pictures}
+        return render(request, 'main/carousel.html', context)
+
+    def post(self, request):
+        if 'file' not in request.FILES:
+            return redirect('home')
+
+        f = request.FILES['file']
+        pictures = os.listdir(os.path.join(settings.BASE_DIR, 'main/static/main/img/carousel'))
+        with open(f'main/static/main/img/carousel/{len(pictures) + 1}.jpg', 'wb') as file:
+            file.write(f.read())
+            print(1111)
+        print(file.name)
+        return redirect('galery')
 
 
 

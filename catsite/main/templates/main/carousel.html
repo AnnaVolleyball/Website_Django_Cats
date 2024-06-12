@@ -1,0 +1,45 @@
+{% extends "main/base.html" %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/css/style.css' %}"/>
+{% block content %}
+{% if user.is_authenticated %}
+<form class="login_form col-md6 border rounded" method="post" enctype="multipart/form-data" style="margin: center;">
+    <h2>Загрузите свое изображение</h2>
+     {% csrf_token %}
+   <div class="form-group">
+        <label for="photo">Выберите картинку</label>
+       <br>
+       <br>
+        <input type="file" class="form-control-file" id="photo" name="file">
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
+{% endif %}
+<br>
+<br>
+<div id="carouselExample" class="carousel slide">
+  <div class="carousel-inner">
+    {% for item in pictures %}
+        {% if forloop.first %}
+          <div class="carousel-item active">
+            <img src="{% static 'main/img/carousel/cat.jpeg' %}" class="d-block w-100" alt="Mars">
+          </div>
+        {% else %}
+          <div class="carousel-item">
+            <img src="{% static 'main/img/carousel/' %}{{ item }}" class="d-block w-100" alt="Planet">
+          </div>
+        {% endif %}
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+</div>
+{% endblock %}
+
