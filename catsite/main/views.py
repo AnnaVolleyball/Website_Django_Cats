@@ -6,12 +6,10 @@ from .models import Task
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from django.contrib.auth.forms import UserCreationForm
 
 from django.utils import timezone
 
 
-# business logic
 def index_page(request):
     params = {}
     tasks = Task.objects.all()
@@ -115,6 +113,13 @@ class EditTask(View):
             # Если данные формы недопустимы, возвращаем страницу регистрации с сообщением об ошибке
             context = {'form': form, 'task': task}
             return render(request, self.template_name, context)
+
+
+class DeleteTask(View):
+    def get(self, request, task_id):
+        task = get_object_or_404(Task, id=task_id)
+        task.delete()
+        return redirect('home')
 
 
 

@@ -33,14 +33,48 @@
     </table>
   </div>
 {% if user.is_authenticated and user.id == item.user_id %}
+    {% csrf_token %}
     <div style="margin: 30px;">
         <a href="{% url 'edit_task' item.id %}" class="btn btn-warning">
             Изменить
         </a>
-        <a href="/news_delete/{{ item.id }}" class="btn btn-danger">
+        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-task-id="{{ item.id }}">
             Удалить
-        </a>
+        </button>
     </div>
 {% endif %}
 {% endfor %}
+
+<!-- Vertically centered modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Подтверждение удаления</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Вы уверены, что хотите удалить эту задачу?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+        <a type="button" id="confirm-delete-btn" class="btn btn-primary">Удалить</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var deleteButtons = document.querySelectorAll('button[data-bs-target="#staticBackdrop"]');
+    deleteButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var taskId = button.getAttribute('data-task-id');
+            var confirmDeleteBtn = document.getElementById('confirm-delete-btn');
+            confirmDeleteBtn.href = "{% url 'delete_task' 0 %}".replace('/0/', '/' + taskId + '/');
+        });
+    });
+});
+</script>
+
 {% endblock %}
