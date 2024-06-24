@@ -139,8 +139,6 @@ class Galery(View):
         pictures = os.listdir(os.path.join(settings.BASE_DIR, 'main/static/main/img/carousel'))
         with open(f'main/static/main/img/carousel/{len(pictures) + 1}.jpg', 'wb') as file:
             file.write(f.read())
-            print(1111)
-        print(file.name)
         return redirect('galery')
 
 
