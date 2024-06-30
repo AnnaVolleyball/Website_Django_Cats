@@ -3,6 +3,7 @@ from django.urls import path, include
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 from main import views, api
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index_page, name='home'),
@@ -17,6 +18,6 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/tasks/', api.TaskListView.as_view(), name="tasks_api"),
     path('api/tasks/<int:pk>/', api.TaskDetailView.as_view(), name="task_api"),
-    path('api/users/', api.UserListView.as_view(), name="users_api")
+    path('api/users/', api.UserListView.as_view(), name="users_api"),
 
 ]
