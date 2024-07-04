@@ -102,7 +102,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'catsite_database',
         'USER': 'postgres',
-        'PASSWORD': 'parol',
+
         'HOST': '0.0.0.0',
         'PORT': '5432'
     }
