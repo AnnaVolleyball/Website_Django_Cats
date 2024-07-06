@@ -32,7 +32,6 @@ class Register(View):
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            print('save')
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
@@ -95,7 +94,6 @@ class EditTask(View):
 
     def post(self, request, task_id):
         task = get_object_or_404(Task, id=task_id)
-        print(request.POST)
 
         if task.user != request.user:
             return HttpResponseForbidden("You are not allowed to edit this task.")
@@ -103,14 +101,12 @@ class EditTask(View):
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             task = form.save(commit=False)
-            print(task)
             if request.POST.get('is_finished', None) == 'on':
                 task.is_finished = 1
             else:
                 if task.is_finished:
                     task.is_finished = 0
             task.save()
-            print(task)
             return redirect('home')
         else:
             # Если данные формы недопустимы, возвращаем страницу регистрации с сообщением об ошибке
@@ -119,7 +115,7 @@ class EditTask(View):
 
 
 class DeleteTask(View):
-    def get(self, request, task_id):
+    def get(self, task_id):
         task = get_object_or_404(Task, id=task_id)
         task.delete()
         return redirect('home')

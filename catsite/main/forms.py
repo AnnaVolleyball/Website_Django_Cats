@@ -38,21 +38,21 @@ class RegisterForm(UserCreationForm):
         help_text='Обязательное поле. Введите ваш город.',
         widget=forms.TextInput(attrs={'placeholder': 'Введите ваш город'})
     )
-    toy = forms.CharField(
+    ide = forms.CharField(
         max_length=100,
-        label='Любимая игрушка',
-        help_text='Обязательное поле. Введите вашу любимую игрушку.',
-        widget=forms.TextInput(attrs={'placeholder': 'Введите вашу любимую игрушку'}))
+        label='Любимая IDE',
+        help_text='Обязательное поле. Введите вашу любимую IDE.',
+        widget=forms.TextInput(attrs={'placeholder': 'Введите вашу любимую IDE для разработки'}))
 
     class Meta:
         model = User
-        fields = ('username', 'name', 'surname', 'email', 'birth_date', 'city', 'toy', 'password1', 'password2')
+        fields = ('username', 'name', 'surname', 'email', 'birth_date', 'city', 'ide', 'password1', 'password2')
 
 
 class EditProfileForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = User
-        fields = ['username', 'email', 'name', 'surname', 'birth_date', 'city', 'toy']
+        fields = ['username', 'email', 'name', 'surname', 'birth_date', 'city', 'ide']
         labels = {
             'username': 'Никнейм',
             'email': 'Email',
@@ -60,7 +60,7 @@ class EditProfileForm(UserChangeForm):
             'name': 'Имя',
             'surname': 'Фамилия',
             'city': 'Город',
-            'toy': 'Любимая игрушка'
+            'ide': 'Любимая IDE для программирования'
         }
 
 

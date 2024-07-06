@@ -1,7 +1,4 @@
-import datetime
-
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -14,7 +11,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True, null=False, blank=False, default='default@example.com')
     birth_date = models.DateField(null=True)
     city = models.CharField(max_length=100, null=False, blank=False, default='default city')
-    toy = models.CharField(max_length=100, null=False, blank=False, default='default toy')
+    ide = models.CharField(max_length=100, null=False, blank=False, default='default ide')
     modified_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
@@ -33,13 +30,10 @@ class Task(models.Model):
     def save(self, *args, **kwargs):
         if not self.start_date:
             self.start_date = timezone.now().date()
-        print(self.is_finished)
         if self.is_finished:
             self.end_date = timezone.now().date()
-            print(self.end_date)
         elif not self.is_finished:
             self.end_date = None
-            print(self.end_date)
         super().save(*args, **kwargs)
 
     def __repr__(self):
