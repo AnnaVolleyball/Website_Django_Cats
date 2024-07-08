@@ -115,8 +115,10 @@ class EditTask(View):
 
 
 class DeleteTask(View):
-    def get(self, task_id):
+    def get(self, request, task_id):
         task = get_object_or_404(Task, id=task_id)
+        if task.user != request.user:
+            return HttpResponseForbidden("You are not allowed to delete this task.")
         task.delete()
         return redirect('home')
 
